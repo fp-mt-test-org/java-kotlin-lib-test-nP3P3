@@ -1,0 +1,14 @@
+flex:
+  version: 0.5.1
+  workflows:
+    setup-dependencies:
+      command: pip3 install battenberg
+    initialize-template:
+      depends-on: setup-dependencies
+      command: if ! [[ "$(git branch)" =~ "template" ]]; then battenberg install https://github.com/fp-mt-test-org/template-java-kotlin-library; fi
+    build:
+      command: ./gradlew build
+    update-template:
+      command: battenberg upgrade --no-input
+service:
+  name: 'java-kotlin-lib-test-nP3P3'
